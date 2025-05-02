@@ -1,0 +1,21 @@
+﻿@model IEnumerable<DACN1.Models.TbBlog>
+
+@foreach(var item in Model)
+{
+	<div class="col-lg-4 col-md-6">
+		<div class="single-latest-news">
+			<a href="single-news.html">
+				<img src="@item.Image" alt="Latest News" width="290" height="200">
+			</a>
+			<div class="news-text-box">
+				<h3><a href="single-news.html">@item.Title</a></h3>
+				<p class="blog-meta">
+					<span class="author"><i class="fas fa-user"></i> @item.CreatedBy</span>
+					<span class="date"><i class="fas fa-calendar"></i>@item.CreatedDate.Value.ToString("dd/MM/yyyy")</span>
+				</p>
+				<p class="excerpt">@item.Description</p>
+				<a href="single-news.html" class="read-more-btn">Read more <i class="fas fa-angle-right"></i></a>
+			</div>
+		</div>
+	</div>
+}
