@@ -1,4 +1,4 @@
-﻿
+﻿@using DACN1.Utilities;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -195,8 +195,8 @@
                     <div class="info">
 
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a asp-action="Logout" asp-controller="Home" class="nav-link">
+                            <li class="nav-item"> 
+                                <a asp-action="Logout" asp-controller="Home" asp-area="Admin" class="nav-link">
                                     <i class="fas fa-sign-out-alt"></i> Sign Out
                                 </a>
                             </li>
@@ -251,14 +251,6 @@
                                 <i class="nav-icon far fa-image"></i>
                                 <p>
                                     Quản lý blog
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-action="Index" asp-controller="Accounts" asp-area="Admin" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
-                                <p>
-                                    Quản lý người dùng
                                 </p>
                             </a>
                         </li>

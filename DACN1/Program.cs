@@ -2,11 +2,12 @@ using DACN1.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSession();
+
 builder.Services.AddDbContext<BanHqContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -25,6 +26,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthorization();
 

@@ -23,18 +23,18 @@
 				</div>
 				<div id="form_status"></div>
 				<div class="contact-form">
-					<form type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+					<form  id="fruitkha-contact">
 						<p>
-							<input type="text" placeholder="Name" name="name" id="name">
-							<input type="email" placeholder="Email" name="email" id="email">
+							<input type="text" placeholder="Name" name="name" id="c_name">
+							<input type="email" placeholder="Email" name="email" id="c_email">
 						</p>
 						<p>
-							<input type="tel" placeholder="Phone" name="phone" id="phone">
+							<input type="tel" placeholder="Phone" name="phone" id="c_phone">
 							<input type="text" placeholder="Subject" name="subject" id="subject">
 						</p>
-						<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea></p>
+						<p><textarea name="c_message" id="message" cols="30" rows="10" placeholder="Message"></textarea></p>
 						<input type="hidden" name="token" value="" />
-						<p><input type="submit" value="Submit"></p>
+						<p><input id="c_submit" type="submit" value="Submit"></p>
 					</form>
 				</div>
 			</div>
@@ -73,3 +73,32 @@
 <div class="embed-responsive embed-responsive-21by9">
 	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3297.752517283824!2d105.6931747745495!3d18.65904358246157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3139cddf0bf20f23%3A0x86154b56a284fa6d!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBWaW5o!5e1!3m2!1svi!2s!4v1746173703604!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			$("#c_submit").click(function () {
+				_name = $("#c_name").val();
+				_phone = $("#c_phone").val();
+				_email = $("#c_email").val();
+				_message = $("#c_message").val();
+				$.ajax({
+					url: "/Contact/Create",
+					type: "POST",
+					data: { name: _name, phone: _phone, email: _email, message: _message },
+					success: function (result) {
+						if (result != null) {
+							$("#c_name").val("");
+							$("#c_phone").val("");
+							$("#c_email").val("");
+							$("#c_message").val("");
+							toastr.success('Gửi thành công');
+						}
+						else {
+							toastr.success('Gửi không thành công');
+						}
+					}
+				})
+			});
+		})
+	</script>
+}
