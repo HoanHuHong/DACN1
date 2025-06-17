@@ -1,0 +1,38 @@
+﻿@model DACN1.Models.TbContact
+
+@{
+    ViewData["Title"] = "Xóa liên hệ";
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <h1>Xóa liên hệ</h1>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="ContactId" />
+
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title">Bạn có chắc chắn muốn xóa liên hệ này không?</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Họ và tên:</strong> @Model.Name</p>
+                        <p><strong>Email:</strong> @Model.Email</p>
+                        <p><strong>Lời nhắn:</strong>@Model.Message</p>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

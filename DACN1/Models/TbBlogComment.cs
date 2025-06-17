@@ -20,8 +20,8 @@ public partial class TbBlogComment
     public int? BlogId { get; set; }
 
     public bool IsActive { get; set; }
-	public string? Image { get; set; }
 
+    public string? Image { get; set; }
 
-	public virtual TbBlog? Blog { get; set; }
+    public virtual TbBlog? Blog { get; set; }
 }

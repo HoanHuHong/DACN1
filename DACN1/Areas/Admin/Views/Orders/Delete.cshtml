@@ -1,0 +1,44 @@
+﻿@model DACN1.Models.TbOrder
+
+@{
+    ViewData["Title"] = "Xóa đơn hàng";
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <h1>Xóa đơn hàng</h1>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="OrderId" />
+
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title">Bạn có chắc chắn muốn xóa đơn hàng này không?</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Mã đơn hàng:</strong> @Model.Code</p>
+                        <p><strong>Khách hàng:</strong> @Model.CustomerName</p>
+                        <p><strong>Ngày đặt hàng:</strong> @Model.CreatedDate?.ToString("dd/MM/yyyy HH:mm")</p>
+                        <p><strong>Tổng tiền:</strong> @String.Format("{0:N0} VNĐ", Model.TotalAmount)</p>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

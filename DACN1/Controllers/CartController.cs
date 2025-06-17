@@ -56,5 +56,63 @@ namespace DACN1.Controllers
 			}
 			return RedirectToAction("Index");
 		}
+		public IActionResult Checkout()
+		{
+			var cartItems = Cart;
+			return View(cartItems);
+		}
+
+		[HttpPost]
+		public IActionResult CheckoutConfirm(string customerName, string phone, string address)
+		{
+			var cartItems = Cart;
+
+			if (cartItems == null || !cartItems.Any())
+			{
+				return RedirectToAction("Index", "Home");
+			}
+
+			string orderCode = "DH" + DateTime.Now.ToString("yyyyMMddHHmmss");
+
+			var order = new TbOrder
+			{
+				Code = orderCode,
+				CustomerName = customerName,
+				Phone = phone,
+				Address = address,
+			
+				TotalAmount = cartItems.Sum(x => (int)x.PriceTotal),
+				Quanlity = cartItems.Sum(x => x.Quantity),
+				OrderStatusId = 1,
+				CreatedDate = DateTime.Now,
+				CreatedBy = "Customer",
+			};
+
+			_context.TbOrders.Add(order);
+			_context.SaveChanges();
+
+			foreach (var item in cartItems)
+			{
+				var orderDetail = new TbOrderDetail
+				{
+					OrderId = order.OrderId,
+					ProductId = item.ProductId,
+					Price = item.Price,
+					Quantity = item.Quantity
+				};
+				_context.TbOrderDetails.Add(orderDetail);
+			}
+
+			_context.SaveChanges();
+			HttpContext.Session.Remove(CART_KEY);
+
+            TempData["SuccessMessage"] = "Đặt hàng thành công!";
+            return RedirectToAction("OrderSucess");
+
+        }
+		public IActionResult OrderSucess()
+		{
+			return View();
+		}
 	}
 }

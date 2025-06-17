@@ -59,10 +59,41 @@
 							<ul>
 						@await Component.InvokeAsync("MenuTop")
 								<li>
+									@using Microsoft.AspNetCore.Http
+									@{
+										var username = Context.Session.GetString("UserName");
+									}
+
 									<div class="header-icons">
-										<a class="shopping-cart" href="/cart"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<!-- Giỏ hàng luôn hiển thị -->
+										<a class="shopping-cart" href="/cart" title="Giỏ hàng">
+											<i class="fas fa-shopping-cart"></i>
+										</a>
+
+										@if (!string.IsNullOrEmpty(username))
+										{
+											<!-- Nếu đã đăng nhập thì hiện icon tài khoản + đăng xuất -->
+											<a class="login-icon" href="/profile" title="Tài khoản">
+												<i class="fas fa-user"></i>
+											</a>
+											<a class="logout-icon" href="/login/logout" title="Đăng xuất" style="margin-left:10px;">
+												<i class="fas fa-sign-out-alt"></i>
+											</a>
+										}
+										else
+										{
+											<!-- Nếu chưa đăng nhập thì hiện nút đăng nhập -->
+											<a class="login-icon" href="/login" title="Đăng nhập">
+												<i class="fas fa-user"></i>
+											</a>
+										}
+
+										<!-- Icon tìm kiếm -->
+										<a class="mobile-hide search-bar-icon" href="#">
+											<i class="fas fa-search"></i>
+										</a>
 									</div>
+
 								</li>
 							</ul>
 						</nav>

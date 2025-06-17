@@ -1,0 +1,139 @@
+﻿@model DACN1.Models.TbAccount
+@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng ký tài khoản</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
+    <link rel="stylesheet" href="~/admin/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/admin/dist/css/adminlte.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f9f9f9;
+        }
+
+        .register-box {
+            width: 400px;
+            margin: 60px auto;
+        }
+
+        .register-card-body {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+            .register-card-body h3 {
+                font-weight: 500;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+
+            .register-card-body p.desc {
+                font-size: 14px;
+                color: #666;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .btn-black {
+            background: #000;
+            color: #fff;
+            border-radius: 30px;
+            padding: 10px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+            .btn-black:hover {
+                background: #222;
+            }
+
+        .footer-links {
+            font-size: 13px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .footer-links a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+                .footer-links a:hover {
+                    text-decoration: underline;
+                }
+
+        .text-danger {
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-box">
+        <div class="register-card-body">
+            <h3>ĐĂNG KÝ TÀI KHOẢN</h3>
+            <p class="desc">Điền thông tin bên dưới để tạo tài khoản mới</p>
+
+            <form asp-action="Index" asp-controller="Register" method="post">
+                <div class="form-group">
+                    <label asp-for="Username">Họ và tên</label>
+                    <input asp-for="Username" class="form-control" placeholder="Họ và tên" required />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="Email" required />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password">Mật khẩu</label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Mật khẩu" required />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="agreeTerms" required />
+                    <label class="form-check-label" for="agreeTerms">
+                        Tôi đồng ý với <a href="#">điều khoản sử dụng</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-black btn-block">ĐĂNG KÝ</button>
+            </form>
+
+            <div class="footer-links">
+                <p>Đã có tài khoản? <a asp-controller="Login" asp-action="Index">Đăng nhập</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/admin/plugins/jquery/jquery.min.js"></script>
+    <script src="~/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/admin/dist/js/adminlte.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>

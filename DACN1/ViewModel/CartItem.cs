@@ -1,7 +1,10 @@
-﻿namespace DACN1.ViewModel
+﻿using DACN1.Models;
+
+namespace DACN1.ViewModel
 {
 	public class CartItem
 	{
+		public TbProduct Product { get; set; }
 		public int CartItemId { get; set; }
 		public int ProductId { get; set; }
 		public string? Title { get; set; }

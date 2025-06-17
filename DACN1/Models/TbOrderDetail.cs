@@ -14,4 +14,7 @@ public partial class TbOrderDetail
     public decimal? Price { get; set; }
 
     public int? Quantity { get; set; }
+
+    public virtual TbOrder? Order { get; set; }
+    public virtual TbProduct? Product { get; set; }
 }

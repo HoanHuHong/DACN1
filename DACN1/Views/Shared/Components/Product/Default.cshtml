@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<DACN1.Models.TbProduct>
 @foreach(var item in Model.Take(3))
 {
+	
+
 	string sUrl = $"/product/{item.Alias}-{item.ProductId}.html";
 	<div class="col-lg-4 col-md-6 text-center">
 		<div class="single-product-item">
@@ -8,8 +10,15 @@
 				<a href="@sUrl"><img src="@item.Image" alt=""></a>
 			</div>
 			<a href="@sUrl"><h3>@item.Title</h3></a>
-			<p class="product-price"><span>Per Kg</span> @item.Price VND </p>
-			<a href="/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+			<p class="product-price"><span>1 Kg</span> @item.Price VND </p>
+			<a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.ProductId" method="post" class="cart-btn"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a>
 		</div>
 	</div>
+
+
+
+	
 }
+
+
+

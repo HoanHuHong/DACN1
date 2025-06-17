@@ -1,0 +1,91 @@
+﻿@model IEnumerable<DACN1.Models.TbOrder>
+@{
+    ViewData["Title"] = "Doanh thu";
+
+    DateTime? fromDate = ViewBag.FromDate as DateTime?;
+
+    DateTime? toDate = ViewBag.ToDate as DateTime?;
+
+    int totalRevenue = ViewBag.TotalRevenue as int? ?? 0;
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Thống kê doanh thu</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <form method="get" asp-action="Index">
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <label>Từ ngày</label>
+                        <input type="date" name="fromDate" class="form-control" value="@fromDate?.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>Đến ngày</label>
+                        <input type="date" name="toDate" class="form-control" value="@toDate?.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary">Lọc</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-12">
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3>@totalRevenue.ToString("#,##0") VNĐ</h3>
+                                    <p>Doanh thu</p>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-striped table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Mã đơn</th>
+                                        <th>Khách hàng</th>
+                                        <th>SĐT</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+
+                                    {
+                                        <tr>
+                                            <td>@item.Code</td>
+                                            <td>@item.CustomerName</td>
+                                            <td>@item.Phone</td>
+                                            <td>@item.Address</td>
+                                            <td>@item.CreatedDate?.ToString("dd/MM/yyyy")</td>
+                                            <td>@(item.TotalAmount?.ToString("N0") ?? "0") VNĐ</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

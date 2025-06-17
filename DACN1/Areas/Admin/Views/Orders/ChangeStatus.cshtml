@@ -1,0 +1,60 @@
+﻿@model DACN1.Models.TbOrder
+
+@{
+    ViewData["Title"] = "Cập nhật trạng thái đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>@ViewData["Title"]</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <form asp-action="ChangeStatus" method="post">
+                <div class="card card-primary">
+                    <div class="card-body">
+                        <input type="hidden" asp-for="OrderId" />
+
+                        <div class="form-group">
+                            <label>Mã đơn hàng</label>
+                            <input class="form-control" value="@Model.Code" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label>Khách hàng</label>
+                            <input class="form-control" value="@Model.CustomerName" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input class="form-control" value="@Model.Address" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label>Ngày đặt hàng</label>
+                            <input class="form-control" value="@Model.CreatedDate" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label>Tổng tiền</label>
+                            <input class="form-control" value="@String.Format("{0:N0} VNĐ", Model.TotalAmount)" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label>Trạng thái đơn hàng</label>
+                            <select asp-for="OrderStatusId" class="form-control" asp-items="ViewBag.TrangThai"></select>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">Cập nhật</button>
+                        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</div>

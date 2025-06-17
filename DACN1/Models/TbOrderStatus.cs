@@ -10,4 +10,6 @@ public partial class TbOrderStatus
     public string? Name { get; set; }
 
     public string? Description { get; set; }
+
+    public virtual ICollection<TbOrder> TbOrders { get; set; } = new List<TbOrder>();
 }

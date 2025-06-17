@@ -37,7 +37,7 @@ public partial class BanHqContext : DbContext
 
     public virtual DbSet<TbProductReview> TbProductReviews { get; set; }
 
-    
+   
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TbAccount>(entity =>
@@ -83,6 +83,7 @@ public partial class BanHqContext : DbContext
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Detail).HasMaxLength(200);
             entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.Image).HasMaxLength(500);
             entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.Phone).HasMaxLength(50);
 
@@ -117,42 +118,47 @@ public partial class BanHqContext : DbContext
 
         modelBuilder.Entity<TbOrder>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("tb_Order");
+            entity.HasKey(e => e.OrderId);
+
+            entity.ToTable("tb_Order");
 
             entity.Property(e => e.Address).HasMaxLength(250);
             entity.Property(e => e.Code)
-                .HasMaxLength(10)
+                .HasMaxLength(50)
                 .IsFixedLength();
             entity.Property(e => e.CreatedBy).HasMaxLength(150);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.CustomerName).HasMaxLength(150);
             entity.Property(e => e.ModifiedBy).HasMaxLength(150);
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
-            entity.Property(e => e.OrderId).ValueGeneratedOnAdd();
             entity.Property(e => e.Phone).HasMaxLength(15);
+
+            entity.HasOne(d => d.OrderStatus).WithMany(p => p.TbOrders)
+                .HasForeignKey(d => d.OrderStatusId)
+                .HasConstraintName("FK_tb_Order_tb_OrderStatus1");
         });
 
         modelBuilder.Entity<TbOrderDetail>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("tb_OrderDetail");
+            entity.HasKey(e => e.OrderDetailId);
 
-            entity.Property(e => e.OrderDetailId).ValueGeneratedOnAdd();
+            entity.ToTable("tb_OrderDetail");
+
             entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.TbOrderDetails)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("FK_tb_OrderDetail_tb_Order");
         });
 
         modelBuilder.Entity<TbOrderStatus>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("tb_OrderStatus");
+            entity.HasKey(e => e.OrderStatusId);
+
+            entity.ToTable("tb_OrderStatus");
 
             entity.Property(e => e.Description).HasMaxLength(50);
             entity.Property(e => e.Name).HasMaxLength(50);
-            entity.Property(e => e.OrderStatusId).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<TbProduct>(entity =>

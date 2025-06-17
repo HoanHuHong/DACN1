@@ -28,4 +28,8 @@ public partial class TbOrder
     public DateTime? ModifiedDate { get; set; }
 
     public string? ModifiedBy { get; set; }
+
+    public virtual TbOrderStatus? OrderStatus { get; set; }
+
+    public virtual ICollection<TbOrderDetail> TbOrderDetails { get; set; } = new List<TbOrderDetail>();
 }
